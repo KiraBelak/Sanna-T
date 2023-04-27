@@ -112,7 +112,7 @@ const Header = () => {
                           </Link>
                         )}
                       </Menu.Item>
-                      <Menu.Item>
+                      {/* <Menu.Item>
                         {({ active }) => (
                           <Link href="/auth/signup">
                             <a
@@ -124,14 +124,14 @@ const Header = () => {
                             </a>
                           </Link>
                         )}
-                      </Menu.Item>
+                      </Menu.Item> */}
                     </Menu.Items>
                   </Transition>
                 </Menu>
               <Link href="/">
-                  <a className="left-4 top-4 p-2 rounded-full shadow-md">
+                  <a className="left-4 top-4 p-2 rounded-full">
                     <img
-                      className="h-8 w-10"
+                      className="h-12 w-12"
                       src={logoUrl}
                       alt="Logo"
                       aria-hidden="true"

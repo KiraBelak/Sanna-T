@@ -6,15 +6,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        salud: {
-          primary: "#5D9F6B",
-          secondary: "#E5B54B",
-          secondary2: "#87868A",
-          tercary: "#F097D1",
-          accent: "#3B7DE5",
-          accent2: "#80DEE4",
-          white: "#F0F0F0",
-          black: "#201919",
+        gen: {
+          rosita: "#FF7b8b",
+          rosaPastel: "#FF95AF",
+          verde: "#d6ea74",
+          menta: "#AFeab9",
+          coral: "#FFB3A3",
+          amarillo: "#FFEB62",
+          azul: "#BAE4E3",
+          verdeMenta:"#CDEFAD",
         },
       },
     },

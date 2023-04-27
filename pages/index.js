@@ -1,14 +1,10 @@
 import MainLayout from "@/components/layouts/MainLayout";
 import clientPromise from "@/lib/mongodb";
 import OfflineButton from "@/components/common/OfflineButton";
-import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass,faUserCog, faReceipt, faCamera, faBasketball, faUser } from '@fortawesome/free-solid-svg-icons';
-import Post from "../components/Post";
-import Carousel from "../components/carousel";
 import "material-icons/iconfont/material-icons.css";
 import { useState, useEffect } from 'react';
-import PostForm from "../components/postform";
 import axios from "axios";
 import { useSession, signOut } from "next-auth/react";
 import toast, { Toaster } from "react-hot-toast";
@@ -34,166 +30,68 @@ export async function getServerSideProps(context) {
 }
 
 export default function Home({ isConnected }) {
-  const [abre, setAbre] = useState(true);
-  const [post, setPost] = useState(false);
-  const [posts, setPosts] = useState([]);
-  const [foto, setFoto] = useState([]);
-  const menu = [{
-    title: 'Feed',
-    icon: faMagnifyingGlass,
-    link: ""
-  },
-  {
-    title: 'Foro',
-    icon: faReceipt,
-    action: () => setPost(!post),
-  },
-  {
-    title: 'Tomar foto',
-    icon: faCamera,
-    link: "/cam"
-  },
-  {
-    title: 'Retos',
-    icon: faBasketball,
-    link: "/reto"
-  },
-  {
-    title: 'Perfil',
-    icon: faUser,
-    link: "/user/profile"
-  },
-  ]
-  
-
-  const handleOpen = () => {
-    setAbre(!abre);
-  };
-
+ 
   const tiempo = new Date();
   const { data: session } = useSession();
 
+//   1. Sé la mejor versión de ti mismo.
+// 2. Limpia tu mente del "no puedo".
+// 3. Hazlo. Y si te da miedo, hazlo con miedo.
+// 4. Trabaja duro en silencio y tu éxito hará todo el ruido.
+// 5. Quien tiene magia no necesita trucos.
+// 6. Mi paz mental no tiene precio.
+// 7. Si puedes soñarlo puedes hacerlo.
+// 8. No gastes energías en cosas que no suman.
+// 9. El camino al éxito se llama actitud.
+// 10. Sonríe para la vida, no solo para la foto.
 
+  const frases = [
+    "Sé la mejor versión de ti mismo.",
+    "Limpia tu mente del 'no puedo'.",
+    "Hazlo. Y si te da miedo, hazlo con miedo.",
+    "Trabaja duro en silencio y tu éxito hará todo el ruido.",
+    "Quien tiene magia no necesita trucos.",
+    "Mi paz mental no tiene precio.",
+    "Si puedes soñarlo puedes hacerlo.",
+    "No gastes energías en cosas que no suman.",
+    "El camino al éxito se llama actitud.",
+    "Sonríe para la vida, no solo para la foto.",
+  ];
 
-  const handleSubmit = (data) => {
-
-    //hacer post a la api
-    const { title, txt } = data;
-    const owner = (session.user.email)
-    console.log("el user es", session.user.name)
-    const name = (session.user.name)
-    const img = (session.user.image)
-    const res = axios.post('/api/publicaciones', {
-      owner,
-      title,
-      txt,
-      tiempo,
-      name,
-      img
-    }).then((res) => {
-      if (res.status === 200) {
-        toast.success("Publicacion creada");
-        setPost(false);
-      } else {
-        toast.error("Error al crear publicacion");
-      }
-    })
-
+  //traer una frase random de la lista
+  function fraseRandom() {
+    return frases[Math.floor(Math.random() * frases.length)];
   }
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios.get('/api/publicaciones');
-      setPosts(result.data.reverse());
-    };
-    fetchData();
-  }, []);
+
+  const [frase, setFrase] = useState(fraseRandom());
+
 
 
   return (
     <MainLayout>
       <Toaster position="bottom-center" />
-      {!session ? (
-       null
-          ) : (
-            abre ? (
-        <div onClick={handleOpen} className="flex min-h-[15px] justify-center bg-salud-primary rounded-b-3xl space-x-4 text-white">
-          <svg width="24" className="w-1/6" height="50" viewBox="0 0 24 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12.0001 12.17C11.3431 12.1712 10.6922 12.0429 10.0848 11.7923C9.4774 11.5418 8.92531 11.174 8.46012 10.71L0.290124 2.54002C0.101821 2.35172 -0.00396729 2.09632 -0.00396729 1.83002C-0.00396729 1.56372 0.101821 1.30832 0.290124 1.12002C0.478428 0.931716 0.733823 0.825928 1.00012 0.825928C1.26643 0.825928 1.52182 0.931716 1.71012 1.12002L9.88012 9.29002C10.4426 9.85182 11.2051 10.1674 12.0001 10.1674C12.7951 10.1674 13.5576 9.85182 14.1201 9.29002L22.2901 1.12002C22.4784 0.931716 22.7338 0.825928 23.0001 0.825928C23.2664 0.825928 23.5218 0.931716 23.7101 1.12002C23.8984 1.30832 24.0042 1.56372 24.0042 1.83002C24.0042 2.09632 23.8984 2.35172 23.7101 2.54002L15.5401 10.71C15.0749 11.174 14.5228 11.5418 13.9154 11.7923C13.308 12.0429 12.6572 12.1712 12.0001 12.17Z" fill="#fff" />
-          </svg>
-
+      {session ? 
+        <div className="flex flex-col items-center justify-center">
+          {/* {// Landing page} */}
+        {/* hola esto es cuando ya esta lggeado */}
+       
         </div>
-
-      ) : (
-        <div className="flex justify-center bg-salud-primary rounded-b-3xl space-x-4 text-white">
-
-          {session.user.roles.includes("admin")&&(
-            <div className="flex my-2 flex-col items-center space-y-1 text-white cursor-pointer group">
-                            <div className="w-12 h-12 my-2 p-1 text-white">
-
-            <Link href="/admin/dashboard">
-              <a>
-                <FontAwesomeIcon icon={faUserCog} className="w-full h-full text-gray-500 group-hover:text-blue-500" />
-
-              </a>
-            </Link>
+       : <div className="flex flex-col items-center justify-center">
+        {/* {// Landing page} */}
+          <div className="flex flex-col items-center justify-center">
+          <h1 className="text-3xl font-extrabold justify-center text-center text-black mb-4" style={{ fontFamily: "Roboto" }}>
+            Hola buenas tardes bienvenido a Sanna-T tu espacio seguro para sanarte!
+          </h1>
+          <h2 className="text-2xl font-normal justify-center text-center text-black mb-4" style={{ fontFamily: "Roboto" }}>
+            {frase}
+          </h2>
+          <h3 className="text-3xl font-normal justify-center text-center text-black mb-4" style={{ fontFamily: "Roboto" }}>
+            Que es Sana - T
+          </h3>
             </div>
-            </div>
-          )
-          }
-          {menu.map((item, index) => {
-            return (
-              <div key={index} className="flex my-2 flex-col items-center space-y-1 text-white cursor-pointer group">
-                <div className="w-12 h-12 my-2 p-1 text-white">
-                  {item.icon === faCamera ? (
-                    <Link href={item.link}>
-                      <a>
-                        <FontAwesomeIcon icon={item.icon} style={{ color: '#E5B54B' }} className="w-full h-full text-gray-500 group-hover:text-blue-500" />
-                      </a>
-                    </Link>
-                  ) : (item.action ? (
-                    <FontAwesomeIcon icon={item.icon} style={{ color: '#fff' }} className="w-full h-full text-gray-500 group-hover:text-blue-500" onClick={item.action} />
-                  ) : (
-                    <Link href={item.link}>
-                      <a>
-                        <FontAwesomeIcon icon={item.icon} style={{ color: '#fff' }} className="w-full h-full text-gray-500 group-hover:text-blue-500" />
-                      </a>
-                    </Link>
-                  )
-
-                  )}
-                </div>
-              </div>
-            )
-          })
-          }
-        </div>
-      )
-      )}
-
-      {post ? (
-        <div className="flex justify-center">
-          <div className="w-full max-w-2xl">
-            <PostForm handleSubmit={handleSubmit} />
           </div>
-        </div>
-      ) : (
-        null
-      )}
-      <div >
-        <div className="flex justify-center mb-6">
-          <div className="w-full max-w-2xl">
-            <Carousel />
-          </div>
-        </div>
+          }
 
-        {posts.map((post, i) => {
-          return (
-             <Post key={i} data={posts[i]}/>
-          )
-        }
-        )}
-        <br></br>
-      </div>
       <OfflineButton />
     </MainLayout>
   );

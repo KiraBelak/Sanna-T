@@ -2,7 +2,7 @@ import MainLayout from "@/components/layouts/MainLayout";
 import clientPromise from "@/lib/mongodb";
 import OfflineButton from "@/components/common/OfflineButton";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass,faUserCog, faReceipt, faCamera, faBasketball, faUser } from '@fortawesome/free-solid-svg-icons';
+import { HeartIcon } from "@heroicons/react/outline";
 import "material-icons/iconfont/material-icons.css";
 import { useState, useEffect } from 'react';
 import axios from "axios";
@@ -33,6 +33,7 @@ export default function Home({ isConnected }) {
  
   const tiempo = new Date();
   const { data: session } = useSession();
+  const [princ, setPrinc] = useState(false);
 
 //   1. Sé la mejor versión de ti mismo.
 // 2. Limpia tu mente del "no puedo".
@@ -64,6 +65,36 @@ export default function Home({ isConnected }) {
   }
 
   const [frase, setFrase] = useState(fraseRandom());
+
+  var saludo=""
+
+  if (tiempo.getHours() >= 0 && tiempo.getHours() < 12) {
+    saludo = ("buenos días");
+  } else if (tiempo.getHours() >= 12 && tiempo.getHours() < 19) {
+    saludo =("buenas tardes");
+  } else {
+    saludo =("buenas noches");
+  }
+
+  console.log("wenas"+saludo)
+
+  if (princ==false) {
+    setTimeout(() => {
+      setPrinc(true);
+    }, 2000);
+    return (
+      
+        <div className="flex flex-col items-center justify-center h-screen box-border bg-gen-rosita">
+          <h1 className="text-3xl font-extrabold justify-center text-center text-black mb-4" style={{ fontFamily: "Roboto" }}>
+            Hola {saludo} bienvenido a Sanna-T tu espacio seguro para sanarte!
+          </h1>
+          <h2 className="text-2xl font-normal justify-center text-center text-black mb-4" style={{ fontFamily: "Roboto" }}>
+            {frase}
+          </h2>
+          <HeartIcon className="h-20 w-20 text-gen-verdeMenta" />
+          </div>
+    );
+  }
 
 
 

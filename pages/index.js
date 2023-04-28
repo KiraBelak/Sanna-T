@@ -71,6 +71,8 @@ const [loading2, setLoading2] = useState(false);
     }, 500);
   }, 2600);
 
+  
+
 
   return (
     <>
@@ -78,13 +80,37 @@ const [loading2, setLoading2] = useState(false);
     {princ==true ?  <MainLayout>
       <ParticlesBackground />
       {session ? (
-        <div className="flex flex-col items-center justify-center min-h-screen box-border h-screen">
+        <Transition
+        show={princ}
+        enter="transition-opacity duration-500"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="transition-opacity duration-500"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0" className="flex flex-col items-center box-border h-screen bg-gradient-to-br from-gen-rosita via-gen-menta to-gen-rosaPastel">
           {/* {// Landing page} */}
-          {/* hola esto es cuando ya esta lggeado */}
-        </div>
+        <div className="flex flex-col items-center justify-center mt-0">
+          <h1 className="text-3xl font-extrabold justify-center text-center text-black mb-2" style={{fontFamily: "Roboto"}}>Hola {session.user.name? session.user.name : (
+           <Link href="/user/profile">
+           <a className="flex flex-row items-center justify-center bg-gen-azul">
+              {"->"} Edita tu nombre {"<-"}
+            </a>
+            </Link>
+          )}</h1>
+          </div>
+          <div className="flex flex-col items-center justify-center mt-2">
+          <h1 className="text-3xl font-extrabold justify-center text-center text-black mb-2" style={{fontFamily: "Roboto"}}>¿Cómo te sientes hoy?</h1>
+          <Link href="/user/feelings">
+          <a className="bg-gen-rosita hover:bg-gen-rositaClaro text-white font-bold mb-2 py-2 px-4 rounded hover:bg-gen-rosaPastel">Empezar </a>
+          </Link>
+
+          </div>
+
+         
+        </Transition>
       ) : (
         <Transition
-          show={loading2}
+          show={princ}
           enter="transition-opacity duration-500"
           enterFrom="opacity-0"
           enterTo="opacity-100"

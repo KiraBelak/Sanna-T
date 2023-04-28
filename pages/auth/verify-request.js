@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const VerifyRequestPage = (props) => {
   return (
-    <div className="min-h-full w-full">
+    <div className="min-h-full w-full bg-gradient-to-br from-gen-rosita via-gen-menta to-gen-rosaPastel h-screen font-semibold">
       <div className="flex-1 h-full flex justify-center items-center flex-col py-12 px-4 sm:px-6  lg:px-20 xl:px-24">
         <div className="message my-4 flex justify-center flex-col items-center">
           <p

@@ -175,7 +175,6 @@ export default function Home({ isConnected }) {
                   </a>
                 </Link>
               </div>
-
               <div className="flex flex-col items-center justify-center mt-3 mb-10">
                 <img
                   src="/logo.png"
@@ -191,12 +190,14 @@ export default function Home({ isConnected }) {
                 >
                   ¿Quieres saber más sobre nosotros?
                 </h1>
-                <Link href="/about">
+                <Link href="/owners">
                   <a className="bg-gen-rosita hover:bg-gen-rositaClaro text-white font-bold mb-2 py-2 px-4 rounded hover:bg-gen-rosaPastel shadow-lg shadow-slate-800">
                     Sobre nosotros{" "}
                   </a>
                 </Link>
               </div>
+
+            
               {/* <OfflineButton /> */}
             </Transition>
           ) : (
@@ -255,6 +256,27 @@ export default function Home({ isConnected }) {
                   necesidades. y puedas llevar un control de tus sesiones y de
                   tu progreso.
                 </p>
+              </div>
+              <div className="flex flex-col items-center justify-center mt-3 mb-10">
+                <img
+                  src="/logo.png"
+                  alt="logo"
+                  className="w-40 h-40 mb-4 mt-4"
+                  style={{
+                    filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))",
+                  }}
+                />
+                <h1
+                  className="text-3xl font-extrabold justify-center text-center text-black mb-2"
+                  style={{ fontFamily: "Roboto" }}
+                >
+                  ¿Quieres saber más sobre nosotros?
+                </h1>
+                <Link href="/owners">
+                  <a className="bg-gen-rosita hover:bg-gen-rositaClaro text-white font-bold mb-2 py-2 px-4 rounded hover:bg-gen-rosaPastel shadow-lg shadow-slate-800">
+                    Sobre nosotros{" "}
+                  </a>
+                </Link>
               </div>
             </Transition>
           )}

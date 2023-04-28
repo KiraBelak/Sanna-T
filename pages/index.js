@@ -87,7 +87,7 @@ const [loading2, setLoading2] = useState(false);
         enterTo="opacity-100"
         leave="transition-opacity duration-500"
         leaveFrom="opacity-100"
-        leaveTo="opacity-0" className="flex flex-col items-center box-border h-screen bg-gradient-to-br from-gen-rosita via-gen-menta to-gen-rosaPastel">
+        leaveTo="opacity-0" className="flex flex-col items-center box-border h-full min-h-screen bg-gradient-to-br from-gen-rosita via-gen-menta to-gen-rosaPastel">
           {/* {// Landing page} */}
         <div className="flex flex-col items-center justify-center mt-0">
           <h1 className="text-3xl font-extrabold justify-center text-center text-black mb-2" style={{fontFamily: "Roboto"}}>Hola {session.user.name? session.user.name : (
@@ -101,9 +101,59 @@ const [loading2, setLoading2] = useState(false);
           <div className="flex flex-col items-center justify-center mt-2">
           <h1 className="text-3xl font-extrabold justify-center text-center text-black mb-2" style={{fontFamily: "Roboto"}}>¿Cómo te sientes hoy?</h1>
           <Link href="/user/feelings">
-          <a className="bg-gen-rosita hover:bg-gen-rositaClaro text-white font-bold mb-2 py-2 px-4 rounded hover:bg-gen-rosaPastel">Empezar </a>
+          <a className="bg-gen-rosita hover:bg-gen-rositaClaro text-white font-bold mb-2 py-2 px-4 rounded hover:bg-gen-rosaPastel shadow-lg shadow-slate-800">Empezar </a>
           </Link>
 
+          </div>
+
+          <div className="flex flex-col items-center justify-center mt-2">
+          <h1 className="text-2xl font-extrabold justify-center text-center text-black mb-2" style={{fontFamily: "Roboto"}}>¿Que quieres hacer hoy?</h1>
+          <div className="flex flex-row items-center flex-wrap justify-center">
+          <Link href="/menu/actividads">
+          <a className="hover:bg-gen-azul bg-gen-rosaPastel text-white font-bold mx-2 mb-2 py-2 px-4 rounded shadow-lg shadow-slate-600">Actividades </a>
+          </Link>
+          <Link href="/menu/meditaciones">
+          <a className="hover:bg-gen-azul bg-gen-rosaPastel text-white font-bold mx-2 mb-2 py-2 px-4 rounded shadow-lg shadow-slate-600">Meditaciones </a>
+          </Link>
+          <Link href="/menu/musica">
+          <a className="hover:bg-gen-azul bg-gen-rosaPastel text-white font-bold mx-2 mb-2 mt-3 py-2 px-4 rounded shadow-lg shadow-slate-600">Música </a>
+          </Link>
+          <Link href="/menu/juegos">
+          <a className="hover:bg-gen-azul bg-gen-rosaPastel text-white font-bold mx-2 mb-2 mt-3 py-2 px-4 rounded shadow-lg shadow-slate-600">Juegos </a>
+          </Link>
+          <Link href="/menu/terapia">
+          <a className="hover:bg-gen-azul bg-gen-rosaPastel text-white font-bold mx-2 mb-2 mt-3 py-2 px-4 rounded shadow-lg shadow-slate-600">Terapia </a>
+          </Link>
+        
+          <Link href="/menu/buscarterapeuta">
+          <a className="hover:bg-gen-azul bg-gen-rosaPastel text-white font-bold mx-2 mb-2 mt-3 py-2 px-4 rounded shadow-lg shadow-slate-600">Busca un terapeuta </a>
+          </Link>
+          </div>
+          </div>
+
+          <div className="flex flex-col items-center justify-center mt-3">
+            <h1 className="text-2xl font-extrabold justify-center text-center text-black mb-2" style={{fontFamily: "Roboto"}}>¿Quieres ver tu progreso?</h1>
+            <Link href="/user/progress">
+            <a className="bg-gen-rosita hover:bg-gen-rositaClaro text-white font-bold mb-2 py-2 px-4 rounded hover:bg-gen-rosaPastel shadow-lg shadow-slate-800">Ver progreso </a>
+            </Link>
+          </div>
+
+          <div className="flex flex-col items-center justify-center mt-3 mb-10">
+            <img
+              src="/logo.png"
+              alt="logo"
+              className="w-40 h-40 mb-4 mt-4"
+              style={{ filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))" }}
+            />
+            <h1
+              className="text-3xl font-extrabold justify-center text-center text-black mb-2"
+              style={{fontFamily: "Roboto"}}
+            >
+              ¿Quieres saber más sobre nosotros?
+            </h1>
+            <Link href="/about">
+            <a className="bg-gen-rosita hover:bg-gen-rositaClaro text-white font-bold mb-2 py-2 px-4 rounded hover:bg-gen-rosaPastel shadow-lg shadow-slate-800">Sobre nosotros </a>
+            </Link>
           </div>
 
          
@@ -117,13 +167,13 @@ const [loading2, setLoading2] = useState(false);
           leave="transition-opacity duration-500"
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
-         className="flex flex-col items-center justify-center bg-slate-400 h-screen box-border">
+         className="flex flex-col items-center justify-center bg-slate-400 h-full min-h-screen box-border">
           {/* {// Landing page} */}
-          <div className="flex flex-col items-center justify-center mt-0">
+          <div className="flex flex-col items-center justify-center">
             <img
               src="/logo.png"
               alt="logo"
-              className="w-40 h-40 mb-4 mt-4"
+              className="w-32 h-32 mb-4 mt-5"
               style={{ filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))" }}
             />
             <h1
@@ -161,6 +211,8 @@ const [loading2, setLoading2] = useState(false);
               un control de tus sesiones y de tu progreso.
             </p>
           </div>
+          
+            
         </Transition>
       )}
 

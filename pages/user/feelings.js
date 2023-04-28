@@ -14,8 +14,8 @@ const Feeling = () => {
   const [canvasData, setCanvasData] = useState(null);
   const [learning, setLearning] = useState(null);
   const canvasRef = useRef(null);
-  const [canvasWidth, setCanvasWidth] = useState(window.innerWidth * 0.8);
-  const [canvasHeight, setCanvasHeight] = useState(window.innerHeight * 0.8);
+  // const [canvasWidth, setCanvasWidth] = useState(window.innerWidth * 0.8);
+  // const [canvasHeight, setCanvasHeight] = useState(window.innerHeight * 0.8);
   const [selectedLearning, setSelectedLearning] = useState(null);
 
   const feelings = [
@@ -50,16 +50,16 @@ const Feeling = () => {
   //     console.log(porque);
   //     }, [porque]);
 
-  useEffect(() => {
-    function handleResize() {
-      setCanvasWidth(window.innerWidth * 0.8);
-      setCanvasHeight(window.innerHeight * 0.8);
-    }
+  // useEffect(() => {
+  //   function handleResize() {
+  //     setCanvasWidth(window.innerWidth * 0.8);
+  //     setCanvasHeight(window.innerHeight * 0.8);
+  //   }
 
-    window.addEventListener("resize", handleResize);
+  //   window.addEventListener("resize", handleResize);
 
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
 
   if (step === 0 || sentir === null) {
     return (
@@ -313,8 +313,8 @@ const Feeling = () => {
                   <div>
                     <CanvasDraw
                       ref={canvasRef}
-                      canvasWidth={canvasWidth}
-                      canvasHeight={canvasHeight}
+                      canvasWidth={310}
+                      canvasHeight={500}
                       brushRadius={2}
                       lazyRadius={0}
                     />

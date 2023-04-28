@@ -73,9 +73,9 @@ export default function Home({ isConnected }) {
   return (
     <>
       <Toaster position="bottom-center" />
+      <OfflineButton />
       {princ == true ? (
         <MainLayout>
-          <OfflineButton />
           <ParticlesBackground />
           {session ? (
             <Transition

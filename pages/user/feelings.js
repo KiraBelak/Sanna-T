@@ -2,8 +2,15 @@ import React, { useEffect, useState } from "react";
 import { TextField } from "@mui/material";
 import CanvasDraw from "react-canvas-draw";
 import { useRef } from "react";
+import { Button, Box } from "@mui/material";
+import { ColorLensOutlined, DeleteOutlineOutlined, UndoOutlined } from "@mui/icons-material";
+import { useSession } from "next-auth/react";
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/router";
+import { el } from "date-fns/locale";
 
 const Feeling = () => {
+  const { data: session } = useSession();
   const [step, setStep] = useState(0);
   const [sentir, setSentir] = useState(null);
   const [porque, setPorque] = useState(null);
@@ -14,9 +21,16 @@ const Feeling = () => {
   const [canvasData, setCanvasData] = useState(null);
   const [learning, setLearning] = useState(null);
   const canvasRef = useRef(null);
+  const [color, setColor] = useState("#000000");
+  //instancia de router
+  const router = useRouter();
+
+  
   // const [canvasWidth, setCanvasWidth] = useState(window.innerWidth * 0.8);
   // const [canvasHeight, setCanvasHeight] = useState(window.innerHeight * 0.8);
   const [selectedLearning, setSelectedLearning] = useState(null);
+  //traer el dia mes y año actual
+
 
   const feelings = [
     { name: "Feliz", emoji: "😊" },
@@ -62,6 +76,7 @@ const Feeling = () => {
   // }, []);
 
   if (step === 0 || sentir === null) {
+
     return (
       <div className="bg-gradient-to-br from-gen-rosita via-gen-menta to-gen-rosaPastel h-full min-h-screen text-center">
         <h1 className="text-3xl font-semibold" style={{ fontFamily: "Inter" }}>
@@ -99,7 +114,8 @@ const Feeling = () => {
               <div className="flex justify-around items-center">
                 <button
                   onClick={() => setStep(1)}
-                  className="bg-gen-verde text-white mr-4 px-4 py-2 rounded-full my-4"
+                  disabled={(porque === null || porque === "" || porque.length<5) && true}
+                  className="bg-gen-verde text-black mr-4 px-4 py-2 rounded-full my-4 disabled:bg-gray-400 disabled:cursor-not-allowed"
                 >
                   Continuar
                 </button>
@@ -262,16 +278,74 @@ const Feeling = () => {
 
   if (step === 3) {
     const handleSave = () => {
-      const dataURL = canvasRef.current.canvasContainer.children[1].toDataURL(); // Convertimos la imagen a una URL
+      var dataURL;
+      if (selectedLearning === true) {
+      dataURL = canvasRef.current.canvasContainer.children[1].toDataURL(); // Convertimos la imagen a una URL
+      }else{
+        dataURL = null;
+      }
+      //sacar el dia de hoy
+      const today = new Date();
+
+     
+      //armar el objeto como clave el dia de hoy
+      // console.log(session)
+      const usuario = session.user.email;
+      const newEntry = {
+        [today.toLocaleDateString()]: {
+          usuario:usuario,
+          sentir:sentir,
+          porque:porque,
+          actividades: selectedActivity,
+          rating: rating,
+          emocion: selectedEmotion,
+          learning: learning,
+          imagen: dataURL,
+        },
+      };
+      //mandar el objeto a la api de api/feel
+      const response = async () => {
+        const res =await fetch("/api/feel", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          query:usuario,
+          body: JSON.stringify(newEntry),
+        });
+        const data = await res.json();
+        console.log("data",data);
+        console.log("res",res);
+        if (res.status === 200) {
+          toast.success("Se guardó tu registro");
+          } else if (res.status === 400){
+            toast.error("Ya registraste tu día de hoy");
+          }else{
+            toast.error("Ocurrió un error");
+          }
+        router.push("/");
+
+        
+      };
+      response();
+      
+      // console.log(newEntry);
+
+
+
       setCanvasData(dataURL);
     };
 
     const handleClear = () => {
       setCanvasData(null);
     };
+    const handleColorChange = (e) => {
+      setColor(e.target.value);
+    };
 
     return (
       <div className="bg-gradient-to-br from-gen-rosita via-gen-menta flex flex-col justify-center items-center to-gen-rosaPastel h-full min-h-screen text-center">
+      <Toaster position="bottom-center" />
       {(selectedLearning==null) && (
         <div className="flex flex-col justify-center items-center">
             <h2 className="text-3xl font-semibold" style={{ fontFamily: "Inter" }}>
@@ -301,29 +375,89 @@ const Feeling = () => {
             </div>
         </div>
             )}
-            {selectedLearning && (
-                <>
-                  <h1>¿Qué aprendiste hoy?</h1>
-                  <textarea
-                    placeholder="Escribe aquí lo que aprendiste"
-                    value={learning}
-                    onChange={(e) => setLearning(e.target.value)}
-                  />
-                  <br />
-                  <div>
-                    <CanvasDraw
-                      ref={canvasRef}
-                      canvasWidth={310}
-                      canvasHeight={500}
-                      brushRadius={2}
-                      lazyRadius={0}
-                    />
-                    <button onClick={handleSave}>Guardar dibujo</button>
-                    <button onClick={handleClear}>Borrar dibujo</button>
+            {selectedLearning ? (
+         <Box sx={{   display: "grid",
+         gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+     
+         boxSizing: "border-box",}}>
+         <h1 style={{ fontFamily: "Inter", fontSize: "2.25rem" }}>
+           ¿Qué aprendiste hoy?
+         </h1>
+         <textarea
+           placeholder="Escribe aquí lo que aprendiste"
+           value={learning}
+           className="border-2 rounded-xl border-gen-menta w-full box-border"
+           onChange={(e) => setLearning(e.target.value)}
+           style={{ marginTop: "1rem", padding: "0.5rem", fontFamily: "Inter" }}
+         />
+         <h2 style={{ fontFamily: "Inter", fontSize: "1.5rem", marginTop: "2rem" }}>
+           Puedes dibujarlo
+         </h2>
+         <div style={{ marginTop: "1rem" }}>
+           <CanvasDraw
+             ref={canvasRef}
+             canvasWidth={310}
+             canvasHeight={500}
+             brushRadius={2}
+             lazyRadius={0}
+             brushColor={color}
+             style={{ border: "2px solid #4CAF50", borderRadius: "8px",boxSizing: "border-box" }}
+           />
+           <Box sx={{ display: "flex", justifyContent: "space-between", marginTop: "1rem" }}>
+             <Button
+               variant="contained"
+               startIcon={<DeleteOutlineOutlined />}
+               onClick={() => canvasRef.current.clear()}
+               sx={{ backgroundColor: "#FF6347", color: "#FFF" }}
+             >
+               Borrar
+             </Button>
+             <input
+               type="color"
+               value={color}
+               onChange={handleColorChange}
+               sx={{ width: "50px", height: "50px", padding: "0" }}
+             />
+             <Button
+               variant="contained"
+               startIcon={<UndoOutlined />}
+               onClick={() => {
+                 canvasRef.current.undo();
+               }}
+               sx={{ backgroundColor: "#4CAF50", color: "#FFF" }}
+             >
+                Deshacer
+             </Button>
+           </Box>
+           <Button variant="contained" onClick={handleSave} sx={{ marginTop: "1rem" }}>
+             Guardar
+           </Button>
+         </div>
+         {/* {canvasData && (
+           <img
+             src={canvasData}
+             alt="Dibujo guardado"
+             style={{ display: "block", margin: "1rem auto", maxWidth: "100%" }}
+           />
+         )} */}
+       </Box>
+                ):(
+                  selectedLearning==false && (
+                  <div className="flex flex-col justify-center items-center">
+                  <h2 className="text-3xl font-semibold" style={{ fontFamily: "Inter" }}>
+                    Todos los días  se aprende algo nuevo, solo falta verlo con otros ojos.
+                    <br />
+                    !Mañana será un mejor día!
+                  </h2>
+
+                  <Button variant="contained" onClick={handleSave} sx={{ marginTop: "1rem" }}>
+             Enviar registro
+           </Button>  
                   </div>
-                  {canvasData && <img src={canvasData} alt="Dibujo guardado" />}
-                </>
-                )}
+                )
+                )
+                
+                }
       </div>
     );
   }

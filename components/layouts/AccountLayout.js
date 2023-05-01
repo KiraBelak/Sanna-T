@@ -4,7 +4,7 @@ import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import NoAccessErrorPage from "@/components/errors/NoAccessErrorPage";
 import LoadingCircle from "@/components/common/LoadingCircle";
-import { CogIcon, HeartIcon } from "@heroicons/react/outline";
+import { CogIcon, HeartIcon, SunIcon} from "@heroicons/react/outline";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import classNames from "@/utils/classNames";
@@ -16,24 +16,24 @@ const AccountLayout = ({ title, children, ...props }) => {
 
   const navigation = [
 
-    {
-      name: "Mi perfil",
-      href: "/user/MyProfile",
-      icon: HeartIcon,
-      current: false,
-    },
-    {
-      name: "Información de la cuenta",
-      href: "/user/info",
-      icon: HeartIcon,
-      current: false,
-    },
-    {
-      name: "Mis recompensas",
-      href: "/rewards",
-      icon: HeartIcon,
-      current: false,
-    },
+    // {
+    //   name: "Mi perfil",
+    //   href: "/user/MyProfile",
+    //   icon: HeartIcon,
+    //   current: false,
+    // },
+    // {
+    //   name: "Información de la cuenta",
+    //   href: "/user/info",
+    //   icon: HeartIcon,
+    //   current: false,
+    // },
+    // {
+    //   name: "Mis recompensas",
+    //   href: "/rewards",
+    //   icon: HeartIcon,
+    //   current: false,
+    // },
 
     {
       name: "Configuración",
@@ -41,8 +41,12 @@ const AccountLayout = ({ title, children, ...props }) => {
       icon: CogIcon,
       current: false,
     },
-
-
+    {
+      name:"Seguimiento",
+      href:"/user/track",
+      icon:SunIcon,
+      current:false,
+    },
   ];
 
   if (status === "loading") {

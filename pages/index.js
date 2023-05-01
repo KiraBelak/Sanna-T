@@ -169,7 +169,7 @@ export default function Home({ isConnected }) {
                 >
                   ¿Quieres ver tu progreso?
                 </h1>
-                <Link href="/user/progress">
+                <Link href="/user/track">
                   <a className="bg-gen-rosita hover:bg-gen-rositaClaro text-white font-bold mb-2 py-2 px-4 rounded hover:bg-gen-rosaPastel shadow-lg shadow-slate-800">
                     Ver progreso{" "}
                   </a>

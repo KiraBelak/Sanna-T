@@ -145,20 +145,26 @@ export default function Home({ isConnected }) {
                   </Link>
                   <Link href="/menu/juegos">
                     <a className="hover:bg-gen-azul bg-gen-rosaPastel text-white font-bold mx-2 mb-2 mt-3 py-2 px-4 rounded shadow-lg shadow-slate-600">
-                      Juegos{" "}
+                      Juegos{" "} 
                     </a>
                   </Link>
-                  <Link href="/menu/terapia">
-                    <a className="hover:bg-gen-azul bg-gen-rosaPastel text-white font-bold mx-2 mb-2 mt-3 py-2 px-4 rounded shadow-lg shadow-slate-600">
+                  {/* <Link href="/menu/terapia"> */}
+                    <button disabled className="hover:bg-gen-azul bg-gen-rosaPastel text-white font-bold mx-2 mb-2 mt-3 py-2 px-4 rounded shadow-lg shadow-slate-600 disabled:bg-gen-menta">
                       Terapia{" "}
-                    </a>
-                  </Link>
+                      
+                    </button>
+                  {/* </Link> */}
 
-                  <Link href="/menu/buscarterapeuta">
-                    <a className="hover:bg-gen-azul bg-gen-rosaPastel text-white font-bold mx-2 mb-2 mt-3 py-2 px-4 rounded shadow-lg shadow-slate-600">
+                  {/* <Link disabled href="/menu/buscarterapeuta"> */}
+                    <button 
+                    disabled
+                    className="hover:bg-gen-azul bg-gen-rosaPastel text-white font-bold mx-2 mb-2 mt-3 py-2 px-4 rounded shadow-lg shadow-slate-600 disabled:bg-gen-menta">
                       Busca un terapeuta{" "}
-                    </a>
-                  </Link>
+                      <p className="text-2xs text-gray-700">
+                        (Próximamente)
+                      </p>
+                    </button>
+                  {/* </Link> */}
                 </div>
               </div>
 

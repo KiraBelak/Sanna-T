@@ -4,7 +4,7 @@ import ParticlesBackground from "../components/common/ParticulesBg";
 const owners = [
   {
     name: "Kaleb Rodriguez",
-    description: " Programador 🧑‍💻, fotografo 📷, diseñador 🖍️, viajero ✈️, soñador 🤞. Me gusta aprender absolutamente de todo! Vamos por una comunidad mas fit! 💪",
+    description: " Programador 🧑‍💻, fotografo 📷, diseñador 🖍️, viajero ✈️, soñador 🤞. Me gusta aprender absolutamente de todo! Creo que la vida es un constante aprendizaje y que el conocimiento es la mejor inversión que podemos hacer.s",
     photoSrc: "/creadores/kaleb.jpg",
     // materia:"Taller de investigacion 2 & Temas selectos de desarrollo de software",
   },

@@ -1,9 +1,19 @@
 import MainLayout from "@/components/layouts/MainLayout";
+import { Transition } from "@headlessui/react";
+
 
 const Playlist = () => {
   return (
     <MainLayout>
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gen-rosita via-gen-menta to-gen-rosaPastel py-2">
+      <Transition
+       show={true}
+       enter="transition-opacity duration-500"
+       enterFrom="opacity-0"
+       enterTo="opacity-100"
+       leave="transition-opacity duration-500"
+       leaveFrom="opacity-100"
+       leaveTo="opacity-0"
+       className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gen-rosita via-gen-menta to-gen-rosaPastel py-2">
         <main className="flex flex-col items-center w-full flex-1 px-2 text-center">
           <h1 className="text-4xl font-bold">Playlist Relajantes</h1>
 
@@ -43,7 +53,7 @@ const Playlist = () => {
             loading="lazy"
           ></iframe>
         </main>
-      </div>
+      </Transition>
     </MainLayout>
   );
 };

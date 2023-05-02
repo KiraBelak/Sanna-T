@@ -50,7 +50,7 @@ export default async function handler(req, res) {
             //si no existe, crearlo
             if(!user){
                 const answer = await feel.insertOne({usuario: bodyArray[0].usuario});
-                console.log(answer);
+                // console.log(answer);
             }
 
             //buscar si ya existe un registro con esa fecha en el usuario
@@ -68,7 +68,20 @@ export default async function handler(req, res) {
             }else{
                 res.status(400).json({message: "Ya existe un registro con esa fecha"});
             }
-
+            break;
+        case "GET":
+            //  console.log(query);
+             const existeUser = await feel.findOne({usuario: query.email});
+            // console.log(existeUser);
+            if(existeUser){
+                res.status(200).json({message: "Se ha encontrado el usuario", data: existeUser});
+            }else{
+                res.status(400).json({message:"El usuario no tiene registros"});
+            }
+            break;
+        default:
+            res.status(400).json({message: "Metodo no soportado"});
+            break;
 
     }
                                 
